@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stowarzyszenie „Wspólnie Dla Przyrody”</title>
+  <!-- Normalize + prosta typografia -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    :root {
+      --primary: #2c7a1b;
+      --secondary: #ffffff;
+      --dark: #1a1a1a;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--primary);
+      color: var(--secondary);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    nav {
+      background: var(--dark);
+      color: var(--secondary);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: var(--secondary);
+      padding: 1rem;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    section {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #fff;
+    }
+
+    footer {
+      background: var(--dark);
+      color: var(--secondary);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (min-width: 700px) {
+      nav a {
+        padding: 1rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Stowarzyszenie „Wspólnie Dla Przyrody”</h1>
+    <p>Razem chronimy i badamy przyrodę</p>
+  </header>
+
+  <nav>
+    <a href="#onas">O nas</a>
+    <a href="#wladze">Władze</a>
+    <a href="#wydarzenia">Wydarzenia</a>
+    <a href="#raporty">Raporty</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <section id="onas">
+    <h2>O nas</h2>
+    <p>Krótki opis misji, historii i celów stowarzyszenia. Edytuj ten tekst w pliku <code>index.html</code>, aby dopasować go do swojej organizacji.</p>
+  </section>
+
+  <section id="wladze">
+    <h2>Władze Stowarzyszenia</h2>
+    <div class="card">
+      <h3>Jan Kowalski</h3>
+      <p>Prezes Zarządu</p>
+    </div>
+    <div class="card">
+      <h3>Anna Nowak</h3>
+      <p>Wiceprezes</p>
+    </div>
+    <div class="card">
+      <h3>Piotr Wiśniewski</h3>
+      <p>Skarbnik</p>
+    </div>
+  </section>
+
+  <section id="wydarzenia">
+    <h2>Nadchodzące wydarzenia</h2>
+    <div id="events">
+      <p>Ładowanie wydarzeń...</p>
+    </div>
+  </section>
+
+  <section id="raporty">
+    <h2>Raporty &amp; Wyniki Liczeń</h2>
+    <ul>
+      <!-- Przykładowe pliki (zmień ścieżki na własne) -->
+      <li><a href="raporty/raport-wiosna-2025.pdf">Raport wiosenny 2025 (PDF)</a></li>
+      <li><a href="raporty/liczenia-ptakow-2024.xlsx">Wyniki liczenia ptaków 2024 (XLSX)</a></li>
+    </ul>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt i Social Media</h2>
+    <p>e‑mail: <a href="mailto:kontakt@wspolniedlaprzyrody.pl">kontakt@wspolniedlaprzyrody.pl</a></p>
+    <p>
+      <a href="https://facebook.com/wspolniedlaprzyrody" target="_blank" rel="noopener">Facebook</a> ·
+      <a href="https://instagram.com/wspolniedlaprzyrody" target="_blank" rel="noopener">Instagram</a>
+    </p>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <label>Dołącz do newslettera:</label><br>
+      <input type="email" name="email" placeholder="Twój e‑mail" required>
+      <button type="submit">Zapisz się</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> Stowarzyszenie „Wspólnie Dla Przyrody”
+  </footer>
+
+  <script>
+    // dynamiczny rok w stopce
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Załaduj wydarzenia z pliku JSON (events.json)
+    fetch('events.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('events');
+        container.innerHTML = '';
+        if (data.length === 0) {
+          container.textContent = 'Brak nadchodzących wydarzeń.';
+          return;
+        }
+        data.forEach(ev => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `<h3>${ev.title}</h3><p><strong>${ev.date}</strong></p><p>${ev.description}</p>`;
+          container.appendChild(card);
+        });
+      })
+      .catch(() => {
+        document.getElementById('events').textContent = 'Nie udało się pobrać wydarzeń.';
+      });
+  </script>
+</body>
+</html>
