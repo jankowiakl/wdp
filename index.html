@@ -4,94 +4,188 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stowarzyszenie „Wspólnie Dla Przyrody”</title>
-  <!-- Normalize + prosta typografia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <style>
     :root {
       --primary: #2c7a1b;
+      --primary-dark: #206013;
       --secondary: #ffffff;
       --dark: #1a1a1a;
+      --gray: #f5f5f5;
     }
 
+    *, *::before, *::after { box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       line-height: 1.6;
-      scroll-behavior: smooth;
+      color: var(--dark);
     }
 
-    header {
-      background: var(--primary);
-      color: var(--secondary);
-      padding: 2rem 1rem;
-      text-align: center;
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: var(--secondary);
+      border-bottom: 1px solid #e0e0e0;
+      z-index: 1000;
     }
-
-    header h1 {
-      margin: 0 0 0.5rem 0;
-    }
-
-    nav {
-      background: var(--dark);
-      color: var(--secondary);
+    .navbar-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
     }
-
-    nav a {
-      color: var(--secondary);
-      padding: 1rem;
+    .brand {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--primary);
       text-decoration: none;
     }
-
-    nav a:hover,
-    nav a:focus {
-      background: rgba(255, 255, 255, 0.1);
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.25rem 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width .3s;
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--dark);
+      transition: transform .3s;
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; background: var(--secondary); width: 100%; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
     }
 
+    /* ---------- HERO ---------- */
+    .hero {
+      height: 65vh;
+      min-height: 420px;
+      background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2100&q=60') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: var(--secondary);
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.4);
+    }
+    .hero-content {
+      position: relative;
+      padding: 0 1rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 1rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--secondary);
+      padding: .75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .3s;
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    /* ---------- SECTIONS ---------- */
     section {
-      padding: 2rem 1rem;
-      max-width: 900px;
+      padding: 4rem 1rem;
+      max-width: 1100px;
       margin: auto;
     }
+    section:nth-of-type(even) { background: var(--gray); }
+    h2 { margin-top: 0; font-size: 2rem; }
 
     .card {
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      padding: 1rem;
+      background: var(--secondary);
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      padding: 1.5rem;
       margin: 1rem 0;
-      background: #fff;
     }
 
+    /* ---------- GRID (Aktualności / Projekty) ---------- */
+    .grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* ---------- FOOTER ---------- */
     footer {
       background: var(--dark);
       color: var(--secondary);
       text-align: center;
-      padding: 1rem;
+      padding: 2rem 1rem;
     }
-
-    @media (min-width: 700px) {
-      nav a {
-        padding: 1rem 2rem;
-      }
-    }
+    footer a { color: var(--secondary); text-decoration: none; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Stowarzyszenie „Wspólnie Dla Przyrody”</h1>
-    <p>Razem chronimy i badamy przyrodę</p>
-  </header>
-
-  <nav>
-    <a href="#onas">O nas</a>
-    <a href="#wladze">Władze</a>
-    <a href="#uchwaly">Uchwały</a>
-    <a href="#wydarzenia">Wydarzenia</a>
-    <a href="#raporty">Raporty</a>
-    <a href="#kontakt">Kontakt</a>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a class="brand" href="#">Wspólnie Dla Przyrody</a>
+      <div class="hamburger" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#onas">O nas</a>
+        <a href="#wladze">Władze</a>
+        <a href="#uchwaly">Uchwały</a>
+        <a href="#projekty">Projekty</a>
+        <a href="#wydarzenia">Wydarzenia</a>
+        <a href="#raporty">Raporty</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
   </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Razem chronimy polską przyrodę</h1>
+      <a href="#projekty" class="btn-primary">Zobacz nasze projekty</a>
+    </div>
+  </header>
 
   <section id="onas">
     <h2>O nas</h2>
@@ -107,51 +201,42 @@
 
   <section id="wladze">
     <h2>Władze Stowarzyszenia</h2>
-    <div class="card">
-      <h3>Michał Kizielewicz</h3>
-      <p>Prezes Zarządu</p>
+    <div class="grid">
+      <div class="card"><h3>Michał Kizielewicz</h3><p>Prezes Zarządu</p></div>
+      <div class="card"><h3>Ula Mordacz</h3><p>Wiceprezes</p></div>
+      <div class="card"><h3>Daniela Stecyk</h3><p>Skarbnik</p></div>
+      <div class="card"><h3>Łukasz Jankowiak</h3><p>Komisja Rewizyjna</p></div>
+      <div class="card"><h3>Kuba Mirkowicz</h3><p>Komisja Rewizyjna</p></div>
+      <div class="card"><h3>Marzena Mirkowicz</h3><p>Komisja Rewizyjna</p></div>
     </div>
-    <div class="card">
-      <h3>Ula Mordacz</h3>
-      <p>Wiceprezes</p>
-    </div>
-    <div class="card">
-      <h3>Daniela Stecyk</h3>
-      <p>Skarbnik</p>
-    </div>
-    <h2>Komisja Rewizyjna</h2>
-    <div class="card">
-      <h3>Łukasz Jankowiak</h3>
-    </div>
-    <div class="card">
-      <h3>Kuba Mirkowicz</h3>
-    </div>
-    <div class="card">
-      <h3>Marzena Mirkowicz</h3>
-    </div>
-    
   </section>
 
   <section id="uchwaly">
     <h2>Uchwały</h2>
     <ul>
-      <!-- Przykładowe pliki (zmień ścieżki na własne) -->
-      <li><a href="uchwaly/statut_uchwalony.pdf">Statut</a></li>
+      <li><a href="uchwaly/statut_uchwalony.pdf" target="_blank">Statut</a></li>
     </ul>
+  </section>
+
+  <section id="projekty">
+    <h2>Nasze Projekty</h2>
+    <div class="grid" id="projectsGrid">
+      <!-- Wypełnij kartami projektów lub dynamicznie z JSON -->
+      <div class="card"><h3>Ochrona nietoperzy</h3><p>Instalacja budek i monitoring kolonii.</p></div>
+      <div class="card"><h3>Spacer z przyrodnikiem</h3><p>Edukacyjne wycieczki terenowe.</p></div>
+      <div class="card"><h3>Liczenie żurawi</h3><p>Citizen science – coroczny monitoring populacji.</p></div>
+    </div>
   </section>
 
   <section id="wydarzenia">
     <h2>Nadchodzące wydarzenia</h2>
-    <div id="events">
-      <p>Ładowanie wydarzeń...</p>
-    </div>
+    <div id="events"><p>Ładowanie wydarzeń...</p></div>
   </section>
 
   <section id="raporty">
     <h2>Raporty &amp; Wyniki Liczeń</h2>
     <ul>
-      <!-- Przykładowe pliki (zmień ścieżki na własne) -->
-      <li><a href="raporty/raport-wiosna-2025.pdf">Wkrótce</a></li>
+      <li><a href="raporty/raport-wiosna-2025.pdf" target="_blank">Raport wiosenny 2025 (PDF)</a></li>
     </ul>
   </section>
 
@@ -165,28 +250,31 @@
     <form action="https://formspree.io/f/yourformid" method="POST">
       <label>Dołącz do newslettera:</label><br>
       <input type="email" name="email" placeholder="Twój e‑mail" required>
-      <button type="submit">Zapisz się</button>
+      <button type="submit" class="btn-primary" style="border: none">Zapisz się</button>
     </form>
   </section>
 
   <footer>
-    &copy; <span id="year"></span> Stowarzyszenie „Wspólnie Dla Przyrody”
+    &copy; <span id="year"></span> Stowarzyszenie „Wspólnie Dla Przyrody” • Wykonanie: wolontariusze
   </footer>
 
   <script>
     // dynamiczny rok w stopce
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Załaduj wydarzenia z pliku JSON (events.json)
+    // Hamburger toggle
+    function toggleNav(btn){
+      document.getElementById('navLinks').classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+    // Załaduj wydarzenia
     fetch('events.json')
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
         const container = document.getElementById('events');
         container.innerHTML = '';
-        if (data.length === 0) {
-          container.textContent = 'Brak nadchodzących wydarzeń.';
-          return;
-        }
+        if(!data.length){ container.textContent = 'Brak nadchodzących wydarzeń.'; return; }
         data.forEach(ev => {
           const card = document.createElement('div');
           card.className = 'card';
@@ -194,9 +282,7 @@
           container.appendChild(card);
         });
       })
-      .catch(() => {
-        document.getElementById('events').textContent = 'Nie udało się pobrać wydarzeń.';
-      });
+      .catch(()=>{ document.getElementById('events').textContent='Nie udało się pobrać wydarzeń.'; });
   </script>
 </body>
 </html>
